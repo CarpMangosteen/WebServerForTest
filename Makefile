@@ -1,2 +1,3 @@
 TestServer:
-	g++ Server.cpp -o Server && g++ Client.cpp -o Client
+	g++ utils.cpp Client.cpp -o Client && \
+	g++ utils.cpp Server.cpp -o Server
