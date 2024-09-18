@@ -5,6 +5,8 @@
 #include <iostream>
 #include "utils.h"
 
+#define BUFFER_SIZE 1024
+
 int main() {
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     errif(sockfd == -1, "socket create error");
@@ -17,9 +19,9 @@ int main() {
 
     //bind(sockfd, (sockaddr*)&serv_addr, sizeof(serv_addr)); 客户端不进行bind操作
 
-    (connect(sockfd, (sockaddr*)&serv_addr, sizeof(serv_addr)) == -1, "socket connection error");
-     while(true){
-        char buf[1024];
+    errif(connect(sockfd, (sockaddr*)&serv_addr, sizeof(serv_addr)) == -1, "socket connection error");
+    while(true){
+        char buf[BUFFER_SIZE];
         bzero(&buf, sizeof(buf));
         scanf("%s", buf);
         ssize_t write_bytes = write(sockfd, buf, sizeof(buf));
